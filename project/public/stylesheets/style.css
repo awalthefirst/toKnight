@@ -1,0 +1,61 @@
+
+body{
+  font-family: 'Oxygen', sans-serif;
+  color:#999;
+  font-weight: 300;
+}
+h1 {
+  font-size: 5.2vw;
+}
+h2 {
+  font-size: 3.0vh;
+}
+p {
+  font-size: 2.vmin;
+}
+
+.bg-img {
+  z-index:-5;
+  background: url("") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+   background-size: cover;
+}
+.bg-img:before {
+  z-index:-5;
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom right, #002f4b, rgb(0, 0, 0)) ;
+  opacity: .9;
+  background-size: cover;
+}
+
+header{
+  margin:100px 0;
+}
+.form-group{
+  width:200px;
+  margin:0 auto;
+}
+.login{
+  padding:2px 35px;
+  background-color:#0D800A;
+  border-radius:2px;
+  border:none;
+  margin:20px 0;
+}
+
+input{
+  border-color:#0D800A !important;
+  border-width: 0 0 5px 0 !important;
+  outline: none;
+  background-color:transparent !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}

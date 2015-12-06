@@ -1,4 +1,4 @@
-var dotEnv = require('dotenv').load();
+var dotEnv = require('dotenv').config({silent: true});
 var oauthSignature = require('oauth-signature');
 var n = require('nonce')();  
 var request = require('request');  

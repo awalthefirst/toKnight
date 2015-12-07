@@ -7,18 +7,24 @@ $(document).ready(function(){
   
     
   function getSearch(){
-    var input = $('.searchfield').val();
+    $("input").addClass("field");
+    
+    setTimeout(function() {
+      var input = $('.searchfield').val();
     $.ajax('/api/place?location='+input).done(done).fail(fail);
+      
+    }, 2000);
     
-
     function done(data){
-      console.log("in")
       $(".results").html(data)
+      $("input").removeClass("field");
+    }
+
+     function fail(err){
+     $(".results").html('Something Went Bad');
+     $("input").removeClass("field");
     }
     
-     function fail(err){
-      console.log(err);
-    }
   }
   
 })

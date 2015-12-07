@@ -21,6 +21,7 @@ $(document).ready(function(){
     }
 
      function fail(err){
+       console.log(err);
      $(".results").html('Something Went Bad');
      $("input").removeClass("field");
     }

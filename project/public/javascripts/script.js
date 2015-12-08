@@ -6,9 +6,9 @@ $(document).ready(function(){
   
   
     
-  function getSearch(){
+  function getSearch(e){
     $("input").addClass("field");
-    
+    e.preventDefault();
     setTimeout(function() {
       var input = $('.searchfield').val();
     $.ajax('/api/place?location='+input).done(done).fail(fail);

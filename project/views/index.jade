@@ -3,9 +3,11 @@ extends layout
 block content
   .container.text-center
     header
-      h1 what's up in your area 
-        |  find out where people are going <span class="knight">toKnight</span>
-      button.login login
+      h1 what's up <span>in your area</span> 
+        |  find out where people are going <span class="headBg">toKnight</span>
+      button.login
+        span.stats login
+        i(class="fa fa-facebook-square")
       form
         .form-group.has-feedback.has-feedback-left
           input.form-control.searchfield(type='text' placeholder="location" required)

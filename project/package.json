@@ -11,6 +11,7 @@
     "debug": "~2.2.0",
     "dotenv": "^1.2.0",
     "express": "~4.13.1",
+    "facebook-sdk": "^0.3.2",
     "forever": "^0.15.1",
     "jade": "~1.11.0",
     "lodash": "^3.10.1",

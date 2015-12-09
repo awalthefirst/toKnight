@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var sessions = require("client-sessions");
 var routes = require('./routes/index');
 var api = require('./routes/api');
 
@@ -22,7 +23,21 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sessions({
+  cookieName: 'fbLogin',
+  secret: 'blarGFHDFHGFgadeebsdfasWEWEWlargWEFRDSFHGFbGFHGFlarg',
+  duration: 24 * 60 * 60 * 1000,
+  activeDuration: 1000 * 60 * 5
+}));
 
+app.use(function (req, res, next) {
+  if (req.fbLogin && req.fbLogin.id) {
+    res.locals.login = true;
+  }else{
+    res.locals.login = false;
+  }
+  next();
+})
 
 app.use('/', routes);
 app.use('/api', api);

@@ -5,8 +5,13 @@ block content
     header
       h1 what's up <span>in your area</span> 
         |  find out where people are going <span class="headBg">toKnight</span>
+      
+      if login
+        - but = "logout"
+      else 
+        - but = "login"
       button.login
-        span.stats login
+        span.stats #{but}
         i(class="fa fa-facebook-square")
       form
         .form-group.has-feedback.has-feedback-left

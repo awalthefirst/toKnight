@@ -34,34 +34,51 @@ router.get('/place', function (req, res, next) {
 
 });
 
-router.get('/user', function (req, res) {
+router.get('/user/login', function (req, res, next) {
   var user = JSON.parse(req.query.data);
   db.findUser(user.id, findUserCb);
 
   function findUserCb(err, data) {
     if (err) {
-      console.log(err);
+      response(err);
     }
     else {
-
-      if (data === null) { 
+      if (data === null) {
+        // new user save them
         db.newUser(user, newUserCb)
       }
       else {
-        console.log(data);
+        // we have user in db
+        response(null, data);
       }
     }
   }
 
   function newUserCb(err, data) {
     if (err) {
-      console.log(err);
+      response(err);
     }
     else {
       // save success
+      response(null, data);
     }
   }
 
+  function response(err, data) {
+    if (err) {
+      res.status(404);
+    }
+    else {
+      req.fbLogin.id = data.id;
+      res.end();
+    }
+  }
+  
+})
+
+router.get('/user/logout', function (req, res, next) {
+  req.fbLogin.reset();
+  res.redirect('/');
 })
 
 

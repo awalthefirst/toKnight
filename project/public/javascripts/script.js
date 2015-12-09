@@ -26,10 +26,25 @@ $(document).ready(function () {
         checkLogin(); // log user in
       }
       else {
-        logOut(); // log user out
+         // log user out
+         FB.logout();
+         window.location.assign("/api/user/logout")
       }
 
     })
+    
+    $("body").on('click','.going',function() {
+      if($(".stats").text() === "logout"){
+        //
+        //
+        ///
+        ////
+        /////
+      }else{
+        checkLogin();
+      }
+    })
+    
     // change login/logout button
   function buttonView(data) {
     if (data == "logIn") {
@@ -79,16 +94,15 @@ $(document).ready(function () {
     FB.api('/me', {
       fields: 'id,name,email'
     }, function (response) {
-      console.log(response);
 
-      $.ajax('/api/user?data=' + JSON.stringify(response))
+      $.ajax('/api/user/login?data=' + JSON.stringify(response))
 
-      .done(function () {
-
+      .done(function (data) {
+         // console.log(data)
       })
 
       .fail(function () {
-
+        window.location.reload();
       })
 
 

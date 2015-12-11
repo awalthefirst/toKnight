@@ -13,6 +13,7 @@ var userSchema = new Schema({
     required: true
   },
 });
+
 var obj = {
   User: mongoose.model('registry', userSchema),
   newUser: newUser,
@@ -36,8 +37,6 @@ function newUser(query, cb) {
   user.save(cb);
 
 }
-
-
 
 
 var dbuser = process.env.dbUser;

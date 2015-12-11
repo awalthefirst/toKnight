@@ -21,7 +21,6 @@ $(document).ready(function () {
   };
 
   $(".login").click(function () {
-
       if ($(".stats").text() === "login") {
         checkLogin(); // log user in
       }
@@ -31,18 +30,6 @@ $(document).ready(function () {
          window.location.assign("/api/user/logout")
       }
 
-    })
-    
-    $("body").on('click','.going',function() {
-      if($(".stats").text() === "logout"){
-        //
-        //
-        ///
-        ////
-        /////
-      }else{
-        checkLogin();
-      }
     })
     
     // change login/logout button
@@ -104,12 +91,9 @@ $(document).ready(function () {
       .fail(function () {
         window.location.reload();
       })
-
-
+      
     });
   }
-
-
 
 
 
@@ -122,21 +106,40 @@ $(document).ready(function () {
     e.preventDefault();
     setTimeout(function () {
       var input = $('.searchfield').val();
-      $.ajax('/api/place?location=' + input).done(done).fail(fail);
+      $.ajax('/api/place?location=' + input).done(getSearchDone).fail(getSearchFail);
 
     }, 2000);
 
-    function done(data) {
+    function getSearchDone(data) {
       $(".results").html(data)
       $("input").removeClass("field");
     }
 
-    function fail(err) {
-      console.log(err);
+    function getSearchFail(err) {
       $(".results").html('Something Went Bad');
       $("input").removeClass("field");
     }
 
   }
 
+ $("body").on('click','.going',function() {
+      if($(".stats").text() === "logout"){
+        addGoing(this.id);
+      }else{
+        checkLogin();
+      }
+  })
+
+
+  function addGoing(id){
+   $.get("/api/going/update",{
+     id:id
+   }).done(function(data){
+     alert(data);
+   })
+  }
+  
+
+  
 })
+

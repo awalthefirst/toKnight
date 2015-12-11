@@ -6,8 +6,9 @@ router.get('/', function (req, res, next) {
    
   res.render('index', {
     title: 'Beta Mode',
-    login: res.locals.login
+    login: req.login
   });
+
 });
 
 module.exports = router;

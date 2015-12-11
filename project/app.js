@@ -32,9 +32,9 @@ app.use(sessions({
 
 app.use(function (req, res, next) {
   if (req.fbLogin && req.fbLogin.id) {
-    res.locals.login = true;
+    req.login = true;
   }else{
-    res.locals.login = false;
+    req.login = false;
   }
   next();
 })
@@ -45,7 +45,8 @@ app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
+  console.log(req.mes)
+  var err = new Error(req.err ||'Not Found');
   err.status = 404;
   next(err);
 });

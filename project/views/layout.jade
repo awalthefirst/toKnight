@@ -12,6 +12,11 @@ html
     
 
   body
+    .twitt
+      a.twitter-follow-button(href='https://twitter.com/awwalthefirst', data-show-count='false', data-show-screen-name='false') Follow @awwalthefirst
+      a(href="http://freecodecamp.com/awalthefirst" target="_blank")= " awalthefirst@Fcc"
+      script.
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
     .bg-img
     block content
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")

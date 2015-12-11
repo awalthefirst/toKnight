@@ -5,12 +5,12 @@ var fs = require("fs");
 var jade = require("jade");
 var userDb = require("../model/users");
 var goingDb = require("../model/going")
-
+var goingCount = require("../helpers/goingCount")
 
 router.get('/place', function (req, res, next) {
-
-  if (req.query.location === null || req.query.location === undefined) {
-    next();
+  
+  if (req.query.location === null || req.query.location === undefined || req.query.location.length < 1) {
+    return next();
   }
   else {
 
@@ -20,35 +20,50 @@ router.get('/place', function (req, res, next) {
       sort: 2
     }, function (err, ress, body) {
       if (err) {
-        next();
+        return next();
       }
-      
-      //get yelp bussiness Id
-    var obj = JSON.parse(body).businesses 
-    var Arr = []
-    for(var key in obj){
-      Arr.push(obj[key].id);
-    }
-    goingDb.Going.count({ yelpId: Arr[0] }, function(err,data){
-      console.log(data);
-    })
-    console.log(Arr);
 
-      fs.readFile('./views/fragments/results.jade', 'utf8', function (err, data) {
+      var bodyParsed = JSON.parse(body).businesses
+        //get yelp bussiness Id
+      var yelpBusId = goingCount.init(bodyParsed);
+      goingCount.getCount(yelpBusId, req, getCountCb);
+
+      function getCountCb(err, userGoing, peopleGoing) {
+        if (err) {
+
+        }
+        else {
+          var obj = {
+            userGoing: userGoing,
+            peopleGoing: peopleGoing
+          }
+          goingCount.getRes(bodyParsed, obj, getResCb);
+        }
+      }
+
+      function getResCb(err, body) {
         if (err) {
           next();
-        };
+        }
+        else {
 
-        var fn = jade.compile(data);
-        var html = fn({
-          data: JSON.parse(body).businesses,
-          numGoing:''
-        });
-        res.send(html);
-      });
+          fs.readFile('./views/fragments/results.jade', 'utf8', function (err, data) {
+            if (err) {
+              next();
+            };
 
-    })
+            var fn = jade.compile(data);
+            var html = fn({
+              data: body || bodyParsed,
+            });
+            res.send(html);
+          });
 
+        }
+      }
+
+
+    });
 
   }
 });
@@ -129,24 +144,21 @@ router.get("/going/update", function (req, res, next) {
         }
       }
 
-      function addGoingCb(err,data) {
+      function addGoingCb(err, data) {
         if (err) {
           next();
         }
         else {
-          console.log(data, "added")
-          res.end();
+          res.end("I'm Out");
         }
       }
 
       function removeGoingCb(err) {
         if (err) {
-          console.log(err,data)
           next();
         }
         else {
-          res.end();
-          console.log(data, 'removed');
+          res.end('Add me');
         }
       }
 

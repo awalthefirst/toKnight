@@ -108,14 +108,14 @@ $(document).ready(function () {
       var input = $('.searchfield').val();
       $.ajax('/api/place?location=' + input).done(getSearchDone).fail(getSearchFail);
 
-    }, 2000);
+    }, 1000);
 
     function getSearchDone(data) {
       $(".results").html(data)
       $("input").removeClass("field");
     }
 
-    function getSearchFail(err) {
+    function getSearchFail() {
       $(".results").html('Something Went Bad');
       $("input").removeClass("field");
     }
@@ -123,20 +123,30 @@ $(document).ready(function () {
   }
 
  $("body").on('click','.going',function() {
+      var me = this;
       if($(".stats").text() === "logout"){
-        addGoing(this.id);
+        addGoing(this.id,me);
       }else{
         checkLogin();
       }
   })
 
 
-  function addGoing(id){
+  function addGoing(id,me){
+    
    $.get("/api/going/update",{
      id:id
    }).done(function(data){
-     alert(data);
-   })
+      var iner = $(me).parent().children().first();
+      
+      if(data === "I'm Out"){
+       iner.html(+iner.html()+ 1);
+     }else{
+       iner.html(+iner.html()- 1);
+     }
+      
+     $(me).html(data);
+   });
   }
   
 

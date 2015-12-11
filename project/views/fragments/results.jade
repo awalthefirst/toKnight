@@ -6,5 +6,8 @@ each val, index in data
     p= val.snippet_text
     img(src= val.rating_img_url)
     span.pull-right
-      span= "going(0) "
-      button(id= val.id).going Add me
+      span  going( <span> #{val.going} </span> ) 
+        if val.userMade
+          button(id= val.id class='userG').going  I'm Out
+        else
+          button(id= val.id).going Add me

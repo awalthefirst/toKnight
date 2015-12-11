@@ -82,6 +82,9 @@ input {
 .going:hover {
   background-color: #136D11;
 }
+/*.userG{
+  background-color:#893838;
+}*/
 
 .glyphicon-search:hover {
   color: #136D11;

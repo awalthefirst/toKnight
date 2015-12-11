@@ -129,7 +129,7 @@ $(document).ready(function () {
       }else{
         checkLogin();
       }
-  })
+  });
 
 
   function addGoing(id,me){
@@ -140,8 +140,10 @@ $(document).ready(function () {
       var iner = $(me).parent().children().first();
       
       if(data === "I'm Out"){
+        $(me).toggleClass("userG");
        iner.html(+iner.html()+ 1);
      }else{
+       $(me).toggleClass("userG");
        iner.html(+iner.html()- 1);
      }
       
@@ -149,7 +151,5 @@ $(document).ready(function () {
    });
   }
   
-
-  
-})
+});
 
